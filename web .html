@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmAI Solutions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --accent-color: #f39c12;
+            --background: #f0f8f1;
+            --text-color: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+   
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--background);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(243, 156, 18, 0.1));
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideUp 1s forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideUp 1s 0.3s forwards;
+        }
+
+        /* 3D Animated Elements */
+        .floating-elements {
+            position: absolute;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            perspective: 1000px;
+        }
+
+        .ai-farmer {
+            position: absolute;
+            top: 50%;
+            right: 15%;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .ai-farmer i {
+            font-size: 8rem;
+            color: var(--primary-color);
+        }
+
+        .tech-circle {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            right: 10%;
+            top: 20%;
+            transform-style: preserve-3d;
+            animation: rotate3D 20s linear infinite;
+        }
+
+        .tech-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        /* Solutions Grid */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            perspective: 1000px;
+        }
+
+        .solution-card {
+            position: relative;
+            height: 300px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+
+        .solution-card:hover {
+            transform: rotateY(180deg);
+        }
+
+        .solution-front, .solution-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .solution-front {
+            background: linear-gradient(135deg, #ffffff, #f0f8f1);
+            transform-style: preserve-3d;
+        }
+
+        .solution-back {
+            background: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .solution-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            transform: translateZ(30px);
+        }
+
+        .solution-back .cta-button {
+            background: white;
+            color: var(--primary-color);
+            margin-top: 1rem;
+            transform: translateZ(20px);
+        }
+
+        .solution-back .cta-button:hover {
+            background: var(--text-color);
+            color: white;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateZ(20px); }
+            50% { transform: translateY(-10px) translateZ(20px); }
+        }
+
+        .solution-card .solution-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-30px) rotateY(10deg); }
+        }
+
+        @keyframes rotate3D {
+            0% { transform: rotateY(0deg) rotateX(0deg); }
+            100% { transform: rotateY(360deg) rotateX(360deg); }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) translateZ(20px);
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+            background: var(--secondary-color);
+        }
+
+        .login-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px) translateZ(10px);
+            background: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            perspective: 1000px;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(20deg);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            transform-style: preserve-3d;
+            animation: modalOpen 0.5s forwards;
+        }
+
+        #signupModal .modal-content {
+            max-width: 450px;
+        }
+
+        .password-requirements {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        .password-requirements ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .password-requirements li {
+            margin: 0.2rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .password-requirements li i {
+            color: #ccc;
+            font-size: 0.8rem;
+        }
+
+        .password-requirements li.valid i {
+            color: var(--primary-color);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+        }
+
+        @keyframes modalOpen {
+            from {
+                transform: translate(-50%, -50%) rotateX(20deg) translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) rotateX(0) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            transform-style: preserve-3d;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+            transform: translateZ(10px);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            transform: translateZ(5px);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(46, 204, 113, 0.2);
+            outline: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .form-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .farmers-section, .technology-section, .contact-section {
+            padding: 6rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .farmers-section {
+            background: linear-gradient(135deg, #f0f8f1, #e8f5e9);
+        }
+
+        .farmer-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .farmer-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .farmer-card:hover {
+            transform: translateY(-10px) rotateX(10deg);
+        }
+
+        .farmer-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateZ(20px);
+        }
+
+        .farmer-image i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .farmer-details {
+            text-align: center;
+            transform: translateZ(10px);
+        }
+
+        .technology-section {
+            background: white;
+        }
+
+        .tech-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateZ(30px);
+        }
+
+        .tech-icon-large {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            transform: translateZ(20px);
+        }
+
+        .tech-details {
+            transform: translateZ(10px);
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(243, 156, 18, 0.1));
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            transform-style: preserve-3d;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            transform: translateZ(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+
+            .floating-elements {
+                width: 100%;
+                height: 50%;
+                position: relative;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .farmer-cards, .tech-showcase, .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Chatbot styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .chatbot-header {
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+
+        .back-button:hover {
+            transform: translateX(-3px);
+        }
+
+        .back-button i {
+            font-size: 1.1rem;
+        }
+
+        .language-selector {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            background: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        .language-selector option {
+            background: white;
+            color: var(--text-color);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: var(--background);
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 10px;
+            max-width: 80%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .user-message {
+            background: white;
+            margin-left: auto;
+            color: var(--text-color);
+        }
+
+        .bot-message {
+            background: var(--primary-color);
+            margin-right: auto;
+            color: white;
+        }
+
+        .chatbot-input {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .chatbot-input input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .chatbot-input button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            padding: 8px;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .chatbot-input button:hover {
+            background: var(--background);
+        }
+
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+            z-index: 999;
+            transition: transform 0.3s;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-toggle i {
+            color: white;
+            font-size: 24px;
+        }
+
+        .cta-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .camera-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            max-width: 640px;
+        }
+
+        .camera-select, .crop-select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .detection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .capture-guide {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .treatment-guide {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .severity-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .severity-high { background-color: #dc3545; }
+        .severity-medium { background-color: #ffc107; }
+        .severity-low { background-color: #28a745; }
+
+        .camera-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .close-camera-btn:hover {
+            color: #ff0000;
+        }
+
+        .disease-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .health-status {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .analysis-results h4 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .crop-analysis-section {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, #f0f8f1, #e8f5e9);
+        }
+
+        .analysis-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .upload-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .upload-box {
+            border: 2px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-box:hover {
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .upload-box i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .crop-selection select {
+            width: 100%;
+            max-width: 300px;
+            padding: 0.8rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .analysis-results {
+            margin-top: 2rem;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ffc107;
+            margin-right: 0.5rem;
+        }
+
+        .health-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1s ease;
+        }
+
+        .metric-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .detailed-analysis, .recommendations {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .analysis-points, .recommendation-list {
+            margin-top: 1rem;
+        }
+
+        .analysis-points li, .recommendation-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .analysis-points li:before, .recommendation-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        .upload-options {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-option-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            background: white;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .upload-option-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .upload-option-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .camera-container {
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        #cameraPreview {
+            width: 100%;
+            max-height: 480px;
+            border-radius: 8px;
+            background: #000;
+            margin-bottom: 1rem;
+        }
+
+        .camera-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .camera-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .camera-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .camera-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-text">FarmAI</span>
+            <i class="fas fa-seedling"></i>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#solutions">Solutions</a></li>
+            <li><a href="#farmers">Farmers</a></li>
+            <li><a href="#technology">Technology</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button class="login-btn" onclick="openModal()">Login</button></li>
+        </ul>
+    </nav>
+
+    <!-- Add the login modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-color);">Login</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required onkeyup="validateLogin()">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required onkeyup="validateLogin()">
+                </div>
+                <button type="submit" class="cta-button" id="getStartedBtn" disabled>Login</button>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" onclick="toggleSignup()">Sign up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add the signup modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeSignupModal()">&times;</button>
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-color);">Create Account</h2>
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="signup-password" required onkeyup="checkPasswordStrength(this.value)">
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility('signup-password')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-requirements">
+                        <ul>
+                            <li id="length"><i class="fas fa-circle"></i> At least 8 characters</li>
+                            <li id="uppercase"><i class="fas fa-circle"></i> One uppercase letter</li>
+                            <li id="lowercase"><i class="fas fa-circle"></i> One lowercase letter</li>
+                            <li id="number"><i class="fas fa-circle"></i> One number</li>
+                            <li id="special"><i class="fas fa-circle"></i> One special character</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="signup-confirm-password" required>
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility('signup-confirm-password')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%;">Create Account</button>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" onclick="toggleLogin()">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Empowering Small Farmers with AI</h1>
+            <p>Transform your farming practices with cutting-edge artificial intelligence solutions designed specifically for small and marginal farmers.</p>
+            <button class="cta-button" onclick="openModal()">Get Started <i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="floating-elements">
+            <div class="ai-farmer">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="tech-circle">
+                <i class="fas fa-robot tech-icon" style="transform: translateX(200px) translateZ(50px)"></i>
+                <i class="fas fa-cloud-sun-rain tech-icon" style="transform: translateX(-200px) translateZ(30px)"></i>
+                <i class="fas fa-leaf tech-icon" style="transform: translateY(200px) translateZ(20px)"></i>
+                <i class="fas fa-mobile-alt tech-icon" style="transform: translateY(-200px) translateZ(40px)"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="tech-section" id="solutions">
+        <h2 class="section-title">Smart Farming Solutions</h2>
+        <p class="section-subtitle">Explore our cutting-edge agricultural technologies</p>
+        <div class="solutions-grid">
+            <!-- Mobile App Solution -->
+            <div class="solution-card">
+                <div class="solution-front">
+                    <i class="fas fa-mobile-alt solution-icon"></i>
+                    <h3>Mobile App Solutions</h3>
+                    <p>Access farm insights and controls from your smartphone</p>
+                </div>
+                <div class="solution-back">
+                    <h3>FarmAI Mobile</h3>
+                    <p>Get real-time updates, control irrigation, and monitor crop health from anywhere.</p>
+                    <a href="https://webmakers.expert/en/blog/mobile-solutions-in-agriculture#:~:text=Mobile%20applications%20are%20gaining%20increasing%20importance%20in%20modern,and%20fertilizer%20dosing%2C%20and%20efficient%20coordination%20of%20fieldwork." target="_blank" class="cta-button" style="text-decoration: none;">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Weather Predictions -->
+            <div class="solution-card">
+                <div class="solution-front">
+                    <i class="fas fa-cloud-sun-rain solution-icon"></i>
+                    <h3>Weather Predictions</h3>
+                    <p>AI-powered weather forecasting for farming</p>
+                </div>
+                <div class="solution-back">
+                    <h3>Smart Weather</h3>
+                    <p>Get accurate weather predictions and crop-specific recommendations.</p>
+                    <a href="https://www.bing.com/search?pglt=2339&q=weather+predication+for+agriculutre&cvid=071ed47ee9384f88b415bb5e07b3edfe&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgYICBAAGEDSAQkxODM1NGowajGoAgiwAgE&FORM=ANSPA1&ucpdpc=UCPD&PC=LCTS" target="_blank" class="cta-button" style="text-decoration: none;">View Forecast</a>
+                </div>
+            </div>
+
+            <!-- Soil Analysis -->
+            <div class="solution-card">
+                <div class="solution-front">
+                    <i class="fas fa-seedling solution-icon"></i>
+                    <h3>Soil Analysis</h3>
+                    <p>Advanced soil health monitoring and recommendations</p>
+                </div>
+                <div class="solution-back">
+                    <h3>Soil Health</h3>
+                    <p>Get detailed soil analysis and nutrient management plans.</p>
+                    <a href="https://www.bing.com/search?pglt=2339&q=weather+predication+for+agriculutre&cvid=071ed47ee9384f88b415bb5e07b3edfe&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgYICBAAGEDSAQkxODM1NGowajGoAgiwAgE&FORM=ANSPA1&ucpdpc=UCPD&PC=LCTS" target="_blank" class="cta-button" style="text-decoration: none;">Analyze Soil</a>
+                </div>
+            </div>
+
+            <!-- Smart Automation -->
+            <div class="solution-card">
+                <div class="solution-front">
+                    <i class="fas fa-robot solution-icon"></i>
+                    <h3>Smart Automation</h3>
+                    <p>Automated farming systems for optimal efficiency</p>
+                </div>
+                <div class="solution-back">
+                    <h3>Farm Automation</h3>
+                    <p>Implement smart irrigation and automated crop management.</p>
+                    <a href="https://www.bing.com/search?q=smart%20automation%20in%20agriculutre&qs=n&form=QBRE&sp=-1&lq=smart%20automation%20in%20agriculutre&sc=12-31&sk=&cvid=346B263F3A3547CAA76B1F424A088A70" target="_blank" class="cta-button" style="text-decoration: none;">Automate Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="farmers" class="farmers-section">
+        <h2 class="section-title">Our Farmers</h2>
+        <p class="section-subtitle">Meet some of our successful farmers who have transformed their farming with AI</p>
+        <div class="farmer-cards">
+            <div class="farmer-card">
+                <div class="farmer-image">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="farmer-details">
+                    <h3>Rajesh Kumar</h3>
+                    <p>Cotton Farmer</p>
+                    <p>"AI helped me increase my yield by 40% this season!"</p>
+                </div>
+            </div>
+            <div class="farmer-card">
+                <div class="farmer-image">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="farmer-details">
+                    <h3>Lakshmi Devi</h3>
+                    <p>Rice Cultivation</p>
+                    <p>"The weather predictions saved my crop during monsoon."</p>
+                </div>
+            </div>
+            <div class="farmer-card">
+                <div class="farmer-image">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="farmer-details">
+                    <h3>Mohan Singh</h3>
+                    <p>Wheat Farmer</p>
+                    <p>"Smart irrigation reduced my water usage by 30%"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" class="technology-section">
+        <h2 class="section-title">Our Technology</h2>
+        <p class="section-subtitle">Cutting-edge AI solutions making farming smarter and more efficient</p>
+        <div class="tech-showcase">
+            <div class="tech-item">
+                <div class="tech-icon-large">
+                    <i class="fas fa-satellite"></i>
+                </div>
+                <div class="tech-details">
+                    <h3>Satellite Monitoring</h3>
+                    <p>Real-time crop health monitoring using satellite imagery and AI analysis</p>
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon-large">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="tech-details">
+                    <h3>Smart Analytics</h3>
+                    <p>AI-powered insights for optimal crop management and resource allocation</p>
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon-large">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="tech-details">
+                    <h3>Precision Irrigation</h3>
+                    <p>IoT-based smart irrigation system with AI-controlled water management</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">Get in touch with our team for support and inquiries</p>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h3>Location</h3>
+                        <p>123 Agri Tower, Tech Park<br>chennai, Tamilnadu 600028</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>+91 98765 43210<br>+91 80 2345 6789</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h3>Email</h3>
+                        <p>support@farmai.com<br>info@farmai.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form onsubmit="handleContactSubmit(event)">
+                    <div class="form-group">
+                        <label for="contact-name">Name</label>
+                        <input type="text" id="contact-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="crop-analysis" class="crop-analysis-section">
+        <h2 class="section-title">AI Crop Analysis</h2>
+        <p class="section-subtitle">Upload images of your crops for AI-powered analysis and recommendations</p>
+        
+        <div class="analysis-container">
+            <div class="upload-section">
+                <div class="upload-options">
+                    <button class="upload-option-btn active" onclick="switchUploadMode('file')">
+                        <i class="fas fa-upload"></i> Upload Image
+                    </button>
+                    <button class="upload-option-btn" onclick="switchUploadMode('camera')">
+                        <i class="fas fa-camera"></i> Use Camera
+                    </button>
+                </div>
+
+                <div id="fileUploadSection">
+                    <div class="upload-box" id="dropZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & Drop crop image here</p>
+                        <p>or</p>
+                        <input type="file" id="imageUpload" accept="image/*">
+                        <label for="imageUpload" class="upload-btn">Browse File</label>
+                    </div>
+                </div>
+
+                <div id="cameraSection" style="display: none;">
+                    <div class="camera-container">
+                        <video id="cameraPreview" autoplay playsinline></video>
+                        <div class="camera-controls">
+                            <button id="startCamera" class="camera-btn">
+                                <i class="fas fa-camera"></i> Start Camera
+                            </button>
+                            <button id="captureImage" class="camera-btn" disabled>
+                                <i class="fas fa-camera-retro"></i> Capture
+                            </button>
+                            <button id="switchCamera" class="camera-btn" disabled>
+                                <i class="fas fa-sync"></i> Switch Camera
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crop-selection">
+                    <select id="cropTypeSelect">
+                        <option value="">Select Crop Type</option>
+                        <option value="rice">Rice</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="corn">Corn</option>
+                        <option value="potato">Potato</option>
+                        <option value="tomato">Tomato</option>
+                        <option value="cotton">Cotton</option>
+                        <option value="grass">Grass</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="analysis-results" id="analysisResults" style="display: none;">
+                <div class="result-header">
+                    <h3>Analysis Results</h3>
+                    <div class="result-status">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">Analyzing...</span>
+                    </div>
+                </div>
+                
+                <div class="result-content">
+                    <div class="health-metrics">
+                        <div class="metric">
+                            <h4>Overall Health</h4>
+                            <div class="progress-bar">
+                                <div class="progress" id="healthProgress"></div>
+                            </div>
+                            <span class="metric-value" id="healthValue">0%</span>
+                        </div>
+                        <div class="metric">
+                            <h4>Disease Risk</h4>
+                            <div class="progress-bar">
+                                <div class="progress" id="diseaseProgress"></div>
+                            </div>
+                            <span class="metric-value" id="diseaseValue">0%</span>
+                        </div>
+                        <div class="metric">
+                            <h4>Nutrition Status</h4>
+                            <div class="progress-bar">
+                                <div class="progress" id="nutritionProgress"></div>
+                            </div>
+                            <span class="metric-value" id="nutritionValue">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="detailed-analysis">
+                        <h4>Detailed Analysis</h4>
+                        <div class="analysis-points" id="analysisPoints"></div>
+                    </div>
+                    
+                    <div class="recommendations">
+                        <h4>Recommendations</h4>
+                        <div class="recommendation-list" id="recommendationList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="camera-container" style="display: none;">
+        <button class="close-camera-btn" onclick="closeCamera()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="camera-options">
+            <select id="cameraSelect" class="camera-select">
+                <option value="">Select Camera</option>
+            </select>
+            <select id="cropType" class="crop-select">
+                <option value="">Select Crop Type</option>
+                <option value="rice">Rice</option>
+                <option value="wheat">Wheat</option>
+                <option value="corn">Corn</option>
+                <option value="potato">Potato</option>
+                <option value="tomato">Tomato</option>
+                <option value="cotton">Cotton</option>
+                <option value="grass">Grass</option>
+            </select>
+        </div>
+        <video id="videoElement" autoplay playsinline style="width: 100%; max-width: 640px; border-radius: 8px;"></video>
+        <canvas id="canvasElement" style="display: none;"></canvas>
+        <div id="overlay" class="detection-overlay"></div>
+        <div class="camera-controls">
+            <button id="startCamera" class="cta-button"><i class="fas fa-camera"></i> Start Camera</button>
+            <button id="captureImage" class="cta-button" disabled><i class="fas fa-camera-retro"></i> Capture</button>
+            <button id="analyzeImage" class="cta-button" disabled><i class="fas fa-microscope"></i> Analyze</button>
+            <button id="toggleFlashlight" class="cta-button" disabled><i class="fas fa-bolt"></i> Flashlight</button>
+        </div>
+        <div class="capture-guide">
+            <p><i class="fas fa-info-circle"></i> Position the affected plant area within the frame and ensure good lighting</p>
+        </div>
+    </div>
+    <div id="results" class="results-container" style="display: none;">
+        <h3>Analysis Results</h3>
+        <div id="detectionResults"></div>
+        <div id="treatmentGuide" class="treatment-guide"></div>
+        <div class="action-buttons">
+            <button id="saveReport" class="cta-button"><i class="fas fa-save"></i> Save Report</button>
+            <button id="shareFarmer" class="cta-button"><i class="fas fa-share"></i> Share with Expert</button>
+        </div>
+    </div>
+
+    <div class="chatbot-container">
+        <div class="chatbot-header">
+            <button onclick="closeChatbot()" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+            </button>
+            <select class="language-selector" id="languageSelect">
+                <option value="en">English</option>
+                <option value="hi">हिंदी (Hindi)</option>
+                <option value="ta">தமிழ் (Tamil)</option>
+                <option value="te">తెలుగు (Telugu)</option>
+                <option value="kn">ಕನ್ನಡ (Kannada)</option>
+            </select>
+            <button onclick="toggleVoice()" id="voiceButton">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages"></div>
+        <div class="chatbot-input">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+            <button onclick="startVoiceInput()">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="chatbot-toggle" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <script>
+        // Add dynamic tech circle rotation
+        const techCircle = document.querySelector('.tech-circle');
+        let rotation = 0;
+        
+        function animateTechCircle() {
+            rotation += 0.5;
+            techCircle.style.transform = `rotateY(${rotation}deg) rotateX(${rotation/2}deg)`;
+            requestAnimationFrame(animateTechCircle);
+        }
+        
+        animateTechCircle();
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Login Modal Functions
+        function openModal() {
+            document.getElementById('loginModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Signup Modal Functions
+        function toggleSignup() {
+            closeModal();
+            document.getElementById('signupModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function toggleLogin() {
+            closeSignupModal();
+            openModal();
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Function to handle login
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        const loginBtn = document.querySelector('.login-btn');
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            // Validate inputs
+            if (!email || !password) {
+                showPopupNotification('Please fill in all fields', 'fa-exclamation-circle');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showPopupNotification('Please enter a valid email address', 'fa-exclamation-circle');
+                return;
+            }
+
+            if (password.length < 6) {
+                showPopupNotification('Password must be at least 6 characters', 'fa-exclamation-circle');
+                return;
+            }
+
+            // If validation passes
+            showPopupNotification('Login successful! You can now click Get Started', 'fa-check-circle');
+            getStartedBtn.disabled = false;
+            loginBtn.disabled = true;
+        });
+
+        function isValidEmail(email) {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailRegex.test(email);
+        }
+
+        function showPopupNotification(message, icon) {
+            const notification = document.createElement('div');
+            notification.className = 'popup-notification';
+            notification.innerHTML = `
+                <i class="fas ${icon}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const loginModal = document.getElementById('loginModal');
+            const signupModal = document.getElementById('signupModal');
+            if (event.target == loginModal) {
+                closeModal();
+            } else if (event.target == signupModal) {
+                closeSignupModal();
+            }
+        }
+
+        // Add contact form handler
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+            
+            // Add your contact form logic here
+            console.log('Contact form submission:', { name, email, message });
+            alert('Thank you for your message! We will get back to you soon.');
+            event.target.reset();
+        }
+
+        // Chatbot functionality
+        let isVoiceEnabled = false;
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        const synthesis = window.speechSynthesis;
+
+        // Language support
+        const languages = {
+            en: { code: 'en-US', voice: null },
+            hi: { code: 'hi-IN', voice: null },
+            ta: { code: 'ta-IN', voice: null },
+            te: { code: 'te-IN', voice: null },
+            kn: { code: 'kn-IN', voice: null }
+        };
+
+        // Initialize voices
+        synthesis.onvoiceschanged = () => {
+            const voices = synthesis.getVoices();
+            for (let lang in languages) {
+                languages[lang].voice = voices.find(voice => voice.lang.startsWith(lang)) || voices[0];
+            }
+        };
+
+        function closeChatbot() {
+            const chatbot = document.querySelector('.chatbot-container');
+            chatbot.style.display = 'none';
+            // Clear the chat messages when closing
+            document.getElementById('chatMessages').innerHTML = '';
+            // Reset voice if enabled
+            if (isVoiceEnabled) {
+                isVoiceEnabled = false;
+                document.getElementById('voiceButton').innerHTML = '<i class="fas fa-microphone"></i>';
+            }
+        }
+
+        function toggleChat() {
+            const chatbot = document.querySelector('.chatbot-container');
+            chatbot.style.display = chatbot.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function toggleVoice() {
+            isVoiceEnabled = !isVoiceEnabled;
+            const voiceButton = document.getElementById('voiceButton');
+            voiceButton.innerHTML = `<i class="fas fa-microphone${isVoiceEnabled ? '-slash' : ''}"></i>`;
+        }
+
+        function startVoiceInput() {
+            const currentLang = document.getElementById('languageSelect').value;
+            recognition.lang = languages[currentLang].code;
+            recognition.start();
+        }
+
+        recognition.onresult = (event) => {
+            const text = event.results[0][0].transcript;
+            document.getElementById('userInput').value = text;
+            sendMessage();
+        };
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            input.value = '';
+
+            const currentLang = document.getElementById('languageSelect').value;
+            getBotResponse(message, currentLang);
+        }
+
+        function addMessage(text, sender) {
+            const messages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = text;
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function getBotResponse(message, lang) {
+            const responses = {
+                en: {
+                    greeting: "Hello! How can I help you with farming today?",
+                    weather: "The current weather is suitable for crop cultivation. Would you like specific recommendations?",
+                    crops: "I can help you with information about crop selection, pest control, and irrigation methods.",
+                    help: "I can assist you with: \n- Crop recommendations\n- Weather information\n- Pest control\n- Irrigation methods\n- Market prices"
+                },
+                hi: {
+                    greeting: "नमस्ते! आज मैं खेती में आपकी कैसे मदद कर सकता हूं?",
+                    weather: "वर्तमान मौसम फसल की खेती के लिए उपयुक्त है। क्या आप विशेष सिफारिशें चाहेंगे?",
+                    crops: "मैं फसल चयन, कीट नियंत्रण और सिंचाई विधियों के बारे में जानकारी में आपकी मदद कर सकता हूं।",
+                    help: "मैं इनमें आपकी सहायता कर सकता हूं: \n- फसल की सिफारिशें\n- मौसम की जानकारी\n- कीट नियंत्रण\n- सिंचाई विधियां\n- बाजार के भाव"
+                },
+                ta: {
+                    greeting: "வணக்கம்! இன்று விவசாயத்தில் நான் உங்களுக்கு எப்படி உதவ முடியும்?",
+                    weather: "தற்போதைய வானிலை பயிர் சாகுபடிக்கு ஏற்றது. குறிப்பிட்ட பரிந்துரைகள் வேண்டுமா?",
+                    crops: "பயிர் தேர்வு, பூச்சி கட்டுப்பாடு மற்றும் நீர்ப்பாசன முறைகள் பற்றிய தகவல்களில் நான் உங்களுக்கு உதவ முடியும்.",
+                    help: "நான் இவற்றில் உங்களுக்கு உதவ முடியும்: \n- பயிர் பரிந்துரைகள்\n- வானிலை தகவல்\n- பூச்சி கட்டுப்பாடு\n- நீர்ப்பாசன முறைகள்\n- சந்தை விலைகள்"
+                },
+                te: {
+                    greeting: "నమస్కారం! నేడు వ్యవసాయంలో నేను మీకు ఎలా సహాయం చేయగలను?",
+                    weather: "ప్రస్తుత వాతావరణం పంట సాగుకు అనుకూలంగా ఉంది. మీకు నిర్దిష్ట శిఫార్సులు కావాలా?",
+                    crops: "పంట ఎంపిక, కీట నియంత్రణ మత్తు మరియు నీటి పారుదల పద్ధతుల గురించిన సమాచారంతో నేను మీకు సహాయం చేయగలను.",
+                    help: "నేను వీటిలో మీకు సహాయం చేయగలను: \n- పంట శిఫార్సులు\n- వాతావరణ సమాచారం\n- కీట నియంత్రణ\n- నీటి పారుదల పద్ధతులు\n- మార్కెట్ ధరలు"
+                },
+                kn: {
+                    greeting: "ನಮಸ್ಕಾರ! ಇಂದು ಕೃಷಿಯಲ್ಲಿ ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
+                    weather: "ಪ್ರಸ್ತುತ ಹವಾಮಾನವು ಬೆಳೆ ಕೃಷಿಗೆ ಸೂಕ್ತವಾಗಿದೆ. ನಿಮಗೆ ನಿರ್ದಿಷ್ಟ ಶಿಫಾರಸುಗಳು ಬೇಕೇ?",
+                    crops: "ಬೆಳೆ ಆಯ್ಕೆ, ಕೀಟ ನಿಯಂತ್ರಣ ಮತ್ತು ನೀರಾವರಿ ವಿಧಾನಗಳ ಬಗ್ಗೆ ಮಾಹಿತಿಯೊಂದಿಗೆ ನಾನು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಬಹುದು.",
+                    help: "ನಾನು ಇವುಗಳಲ್ಲಿ ನಿಮಗೆ ಸಹಾಯ ಮಾಡಬಹುದು: \n- ಬೆಳೆ ಶಿಫಾರಸುಗಳು\n- ಹವಾಮಾನ ಮಾಹಿತಿ\n- ಕೀಟ ನಿಯಂತ್ರಣ\n- ನೀರಾವರಿ ವಿಧಾನಗಳು\n- ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು"
+                }
+            };
+
+            let response = responses[lang].greeting;
+            const msgLower = message.toLowerCase();
+            
+            if (msgLower.includes('weather')) {
+                response = responses[lang].weather;
+            } else if (msgLower.includes('crop') || msgLower.includes('farming')) {
+                response = responses[lang].crops;
+            } else if (msgLower.includes('help')) {
+                response = responses[lang].help;
+            }
+
+            // Add text-to-speech functionality
+            const speakResponse = (text) => {
+                const speech = new SpeechSynthesisUtterance(text);
+                speech.lang = lang === 'en' ? 'en-US' : 
+                            lang === 'hi' ? 'hi-IN' : 
+                            lang === 'ta' ? 'ta-IN' :
+                            lang === 'te' ? 'te-IN' :
+                            lang === 'kn' ? 'kn-IN' : 'en-US';
+                window.speechSynthesis.speak(speech);
+            };
+
+            // Display text response and speak it
+            addMessage(response, 'bot');
+            speakResponse(response);
+        }
+
+        function speak(text, lang) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = languages[lang].voice;
+            utterance.lang = languages[lang].code;
+            synthesis.speak(utterance);
+        }
+
+        // Initialize chatbot as hidden
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.chatbot-container').style.display = 'none';
+        });
+
+        function validateLogin() {
+            const username = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const getStartedBtn = document.getElementById('getStartedBtn');
+            
+            // Enable button only if both fields have values
+            getStartedBtn.disabled = !(username.length >= 3 && password.length >= 6);
+        }
+
+        // Update your existing login form submit handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            if (username && password) {
+                // Your existing login logic here
+                window.location.href = '#home';
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+
+        // AI Crop Analysis functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('imageUpload');
+            const analysisResults = document.getElementById('analysisResults');
+            const cropTypeSelect = document.getElementById('cropTypeSelect');
+
+            // Handle drag and drop
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.style.background = 'rgba(46, 204, 113, 0.1)';
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.style.background = 'transparent';
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.style.background = 'transparent';
+                const files = e.dataTransfer.files;
+                if (files.length > 1) {
+                    alert('Please upload only one image at a time');
+                    return;
+                }
+                handleFile(files[0]);
+            });
+
+            // Handle file input
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 1) {
+                    alert('Please upload only one image at a time');
+                    e.target.value = ''; // Clear the input
+                    return;
+                }
+                handleFile(e.target.files[0]);
+            });
+
+            function handleFile(file) {
+                if (!file) return;
+                
+                const cropType = cropTypeSelect.value;
+            if (!cropType) {
+                    alert('Please select a crop type first');
+                return;
+            }
+
+                // Show analysis results
+                analysisResults.style.display = 'block';
+                
+                // Simulate AI analysis
+                simulateAnalysis(cropType);
+            }
+
+            function simulateAnalysis(cropType) {
+                // Update status
+                const statusIndicator = document.querySelector('.status-indicator');
+                const statusText = document.querySelector('.status-text');
+                statusIndicator.style.background = '#ffc107';
+                statusText.textContent = 'Analyzing...';
+
+                // Simulate API call delay
+                setTimeout(() => {
+                    // Update metrics
+                    updateMetric('healthProgress', 'healthValue', 85);
+                    updateMetric('diseaseProgress', 'diseaseValue', 15);
+                    updateMetric('nutritionProgress', 'nutritionValue', 75);
+
+                    // Update status
+                    statusIndicator.style.background = '#28a745';
+                    statusText.textContent = 'Analysis Complete';
+
+                    // Add analysis points
+                    const analysisPoints = document.getElementById('analysisPoints');
+                    analysisPoints.innerHTML = `
+                        <li>Leaf color analysis shows healthy chlorophyll levels</li>
+                        <li>No visible signs of disease detected</li>
+                        <li>Optimal growth stage for current season</li>
+                        <li>Minor nutrient deficiency detected in lower leaves</li>
+                    `;
+
+                    // Add recommendations
+                    const recommendationList = document.getElementById('recommendationList');
+                    recommendationList.innerHTML = `
+                        <li>Apply balanced NPK fertilizer in recommended dosage</li>
+                        <li>Monitor soil moisture levels regularly</li>
+                        <li>Schedule next pest control treatment in 2 weeks</li>
+                        <li>Consider foliar spray for micronutrient supplementation</li>
+                    `;
+            }, 2000);
+        }
+
+            function updateMetric(progressId, valueId, percentage) {
+                const progress = document.getElementById(progressId);
+                const value = document.getElementById(valueId);
+                progress.style.width = `${percentage}%`;
+                value.textContent = `${percentage}%`;
+            }
+        });
+
+        // Camera functionality
+        let stream = null;
+        let currentCamera = 'user'; // 'user' for front camera, 'environment' for back camera
+
+        async function switchUploadMode(mode) {
+            const fileSection = document.getElementById('fileUploadSection');
+            const cameraSection = document.getElementById('cameraSection');
+            const fileBtn = document.querySelector('.upload-option-btn:nth-child(1)');
+            const cameraBtn = document.querySelector('.upload-option-btn:nth-child(2)');
+
+            if (mode === 'file') {
+                fileSection.style.display = 'block';
+                cameraSection.style.display = 'none';
+                fileBtn.classList.add('active');
+                cameraBtn.classList.remove('active');
+                stopCamera();
+            } else {
+                fileSection.style.display = 'none';
+                cameraSection.style.display = 'block';
+                fileBtn.classList.remove('active');
+                cameraBtn.classList.add('active');
+                startCamera();
+            }
+        }
+
+        async function startCamera() {
+            try {
+                const video = document.getElementById('cameraPreview');
+                const constraints = {
+                    video: {
+                        facingMode: currentCamera,
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                };
+
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = stream;
+                document.getElementById('startCamera').disabled = true;
+                document.getElementById('captureImage').disabled = false;
+                document.getElementById('switchCamera').disabled = false;
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+                alert('Could not access camera. Please make sure you have granted camera permissions.');
+            }
+        }
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                const video = document.getElementById('cameraPreview');
+                video.srcObject = null;
+                document.getElementById('startCamera').disabled = false;
+                document.getElementById('captureImage').disabled = true;
+                document.getElementById('switchCamera').disabled = true;
+            }
+        }
+
+        async function switchCamera() {
+            currentCamera = currentCamera === 'user' ? 'environment' : 'user';
+            stopCamera();
+            await startCamera();
+        }
+
+        function captureImage() {
+            const video = document.getElementById('cameraPreview');
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            
+            // Convert canvas to blob
+            canvas.toBlob((blob) => {
+                const file = new File([blob], 'captured-image.jpg', { type: 'image/jpeg' });
+                handleFile(file);
+            }, 'image/jpeg');
+        }
+
+        // Add event listeners for camera controls
+        document.getElementById('startCamera').addEventListener('click', startCamera);
+        document.getElementById('captureImage').addEventListener('click', captureImage);
+        document.getElementById('switchCamera').addEventListener('click', switchCamera);
+
+        // Update the existing handleFile function to work with both upload and camera
+        function handleFile(file) {
+            if (!file) return;
+            
+            const cropType = document.getElementById('cropTypeSelect').value;
+            if (!cropType) {
+                alert('Please select a crop type first');
+                return;
+            }
+
+            // Show analysis results
+            document.getElementById('analysisResults').style.display = 'block';
+            
+            // Simulate AI analysis
+            simulateAnalysis(cropType);
+        }
+    </script>
+</body>
+</html>
